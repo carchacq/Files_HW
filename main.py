@@ -1,29 +1,30 @@
-# cook_book = {}
-# with open('recipes.txt', 'r', encoding='utf-8') as recipes:
-#     for line in recipes:
-#         dish = line.strip()
-#         prod_count = int(recipes.readline())
-#         ingr_list = []
-#         for i in range(prod_count):
-#             ingredient_name, quantity, measure = recipes.readline().strip().split('|')
-#             ingr_list.append({'ingredient_name': ingredient_name, 'quantity': quantity, "measure": measure})
-#         cook_book[dish] = ingr_list
-#         recipes.readline()
-# # print(cook_book)
+# Задание 1
+cook_book = {}
+with open('recipes.txt', 'r', encoding='utf-8') as recipes:
+    for line in recipes:
+        dish = line.strip()
+        prod_count = int(recipes.readline())
+        ingr_list = []
+        for i in range(prod_count):
+            ingredient_name, quantity, measure = recipes.readline().strip().split('|')
+            ingr_list.append({'ingredient_name': ingredient_name, 'quantity': quantity, "measure": measure})
+        cook_book[dish] = ingr_list
+        recipes.readline()
+# print(cook_book)
 
+# Задание 2
+def get_shop_list_by_dishes(dishes, person_count):
+    shopping_list = {}
+    for dish in dishes:
+        if dish in cook_book:
+            for ingr in cook_book[dish]:
+                if ingr['ingredient_name'] not in shopping_list.keys():
+                    shopping_list.update({ingr['ingredient_name']: {'measure': ingr['measure'], 'quantity': int(ingr['quantity']) * person_count}})
+                else:
+                    shopping_list[ingr['ingredient_name']]['quantity'] += int(ingr['quantity']) * person_count
+    return shopping_list
 
-# def get_shop_list_by_dishes(dishes, person_count):
-#     shopping_list = {}
-#     for dish in dishes:
-#         if dish in cook_book:
-#             for ingr in cook_book[dish]:
-#                 if ingr['ingredient_name'] not in shopping_list.keys():
-#                     shopping_list.update({ingr['ingredient_name']: {'measure': ingr['measure'], 'quantity': int(ingr['quantity']) * person_count}})
-#                 else:
-#                     shopping_list[ingr['ingredient_name']]['quantity'] += int(ingr['quantity']) * person_count
-#     return shopping_list
-
-# print(get_shop_list_by_dishes(['Фахитос', 'Омлет'], 3))
+print(get_shop_list_by_dishes(['Фахитос', 'Омлет'], 3))
 
 
 
